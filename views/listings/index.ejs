@@ -1,0 +1,43 @@
+<% layout('/layouts/boilerPlate.ejs') -%>
+<body>
+    <h1 style="font-family:'sans-serif'">Choosen for your cozy Stay !!</h1>
+    <!-- <div id="nav-bar">
+        <div id="navLogo"><img  alt="image"></div> <br> <br> -->
+        <hr>
+<!-- 
+        <form method="get" action="http://localhost:8080/listings/new">
+            <button id="navCreate-btn">Airbnb your home</button>
+        </form> -->
+        
+        <br>
+    </div>
+    <br>
+
+    <div class=" row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 ">
+        <% for(listing of allListings) {%>
+            <a href="http://localhost:8080/listings/<%=listing._id%>/show" style="text-decoration: none;">
+                <div class="card card-index" style="width: 18rem;">
+                    <img src=" <%=listing.image.url%>" class="card-img-top" alt="Listing_img" style="height: 19rem;" &>
+                    <div class="card-body">
+                        <p style="margin-bottom: 4px;"><b><%=listing.title%></b> </p>
+                        <p  style="font-weight: 500; margin-bottom: 4px;"><i class="fa-solid fa-location-dot"></i> <%= listing.location %> , <%= listing.country %> </p>
+                      <p class="card-text"><%= listing.description.toString().split(' ').slice(0,11).join(' ') %>...</p>
+                      <p><b>&#8377;<%=listing.price.toLocaleString('en-IN')%></b> night</p>
+                    </div>
+                  </div>
+            </a>
+        
+          <% } %>
+    </div>
+
+   
+
+        <!-- <div id="listing-box">
+            <a href="http://localhost:8080/listings/<%=listing._id%>/show">
+                
+            </a>
+        </div> -->
+
+        
+    
+</body>

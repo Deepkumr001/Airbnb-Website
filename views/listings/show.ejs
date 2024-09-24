@@ -1,0 +1,60 @@
+<% layout('/layouts/boilerPlate.ejs') -%>
+<body>
+    
+
+ 
+
+<div class="raw card-img mb-5">
+
+
+
+    <h1><%=listing.title%></h1>
+    <img src="<%=listing.image.url%>" class="card-img-top show-img mb-3" alt="...">
+  
+        <h5 class=""><%= listing.location%>, <%= listing.country%></h5>
+    
+    
+    
+    <ul>
+        <li><div id="title"><%= listing.title%></div></li>
+        <li><div><%= listing.description%></div></li>
+        <li> <div>&#8377;<%= listing.price.toLocaleString('en-IN')%></div></li>
+        <div></div>
+       <li> <div><%= listing.country%></div></li>
+    </ul>
+
+
+  
+</div>
+
+<div class="button btns raw">
+    <form method="get" action="/listings/<%= listing._id%>/edit">
+        <button class="btn btn-primary brand-color" >Edit Listing</button>
+    </form>
+
+    
+    <form method="post" action="/listings/<%= listing._id%>?_method=DELETE">
+        <button class="btn btn-dark " style="margin-left: 2rem;">Delete Listing</button>
+    </form>
+</div>
+
+<hr>
+
+<div class="col-8 offset-3">
+    <h2>Leave a Review: </h2>
+    <form action="/listings/<%= listing._id%>/review" method="post"  class="mt-10 mb-5">
+        <div id="rating" class="mt-5 mb-2">
+            <label class="form-label" for="rating"> Rating</label>
+            <input  type="range" id="rating" min="1" max="5" name="review[rating]">
+        </div>
+    
+        <label for="comment"> Comments</label>
+        <textarea class="form-control" name="review[comment]" id="comment" cols="15" rows="5"></textarea>
+        <button class="btn btn-outline-dark mt-5">Submit</button>
+    </form>
+</div>
+
+
+
+
+</body>

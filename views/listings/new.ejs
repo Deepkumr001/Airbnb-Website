@@ -1,0 +1,98 @@
+<% layout('/layouts/boilerPlate.ejs') -%>
+<body>
+
+    <div class="new-page">
+        <h1 style="font-family:'sans-serif'">Airbnb your home, Start earning <i>3,450/day</i> Average:-</h1>
+        <br><br>
+    <form class="needs-validation" method="post" action="/listings"  novalidate >
+
+        <div class="mb-5">
+            <label for="title" class="form-label">Email Title</label>
+            <input type="text" class="form-control" id="title" placeholder=" example Delux villa" name="listing[title]" required  >
+            
+            <div class="valid-feedback">
+                Looks good!
+              </div>
+            <div class="invalid-feedback">
+                Please enter Title
+              </div>
+
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Enter Description</label>
+            <textarea class="form-control" id="description" rows="3" name="listing[description]"  ></textarea>
+        
+            <div class="valid-feedback">
+                Description is Okay!
+              </div>
+            <div class="invalid-feedback">
+                Please enter short description
+              </div>
+ 
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Email Image url</label>
+            <input name="listing[image{url}]" type="text" class="form-control" id="image" placeholder="http://photo/newvilla/id/2155879397/photo.....">
+                
+            <div class="valid-feedback">
+                Make sure Url is working , if Added
+              </div>
+              
+        </div>
+
+
+        <div class="row">
+            <div class="mb-3 col-md-4">
+                <label for="price" class="form-label">enter Price &#8377; </label>
+                <input type="number" class="form-control" id="price" placeholder="  Per night" name="listing[price]"  >
+                        
+            <div class="valid-feedback">
+                its Good, prices would be competative
+            </div>
+            <div class="invalid-feedback">
+                please enter a valid price
+                
+              </div>
+ 
+            </div>
+
+            <div class="mb-3 col-md-4">
+                <label for="country" class="form-label">enter Country</label>
+                <input  class="form-control" id="country"  type="text" placeholder="Enter country" name="listing[country]"   >
+                              
+                <div class="valid-feedback">
+                    done!  &#x1F44D;
+                </div>
+                <div class="invalid-feedback">
+                    please enter a valid country Name
+                    
+                  </div>
+     
+            </div>
+
+
+
+        </div>
+
+       
+        <div class="mb-3 col-10">
+            <label for="location" class="form-label">enter Location</label>
+            <input class="form-control" id="location" type="text" placeholder="Enter location" name="listing[location]">
+                              
+    
+            <div class="invalid-feedback">
+                please enter a valid Address
+                
+              </div>
+ 
+        </div>
+
+    <br><br>
+
+        <button type="submit" class="btn btn-primary mb-3 col-1 brand-color">submit</button>
+    </form>
+    </div>
+    
+</body>
