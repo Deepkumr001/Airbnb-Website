@@ -95,13 +95,13 @@ app.post('/listings',asyncWrap(  async(req,res,next)=>{
         // }
 
         let result = listingSchema.validate(req.body);
-        if(result.error){
-            next(new ExpressError('404', result.error));
-        }
+        // if(result.error){
+        //     next(new ExpressError('404', result.error));
+        // }
 
     const newListing = new Listings(req.body.listing);
     
-    console.log(newListing.image);
+    // console.log(newListing.image);
 
     await newListing.save()
     // .then(res=>{console.log('listing is saved..' )})
@@ -161,10 +161,22 @@ app.get('/listings',asyncWrap(  async(req,res)=>{
 
 
 //Review Route---
-app.post('/listings/:id/review',(req,res,next)=>{
-    const review = req.body.review;
-   
-    res.send('review route is working');
+app.post('/listings/:id/review', async(req,res,next)=>{
+
+    const review = new Review(req.body.review);
+    console.log(review);
+     
+    const{id} = req.params;
+    console.log(id);
+
+    const listing= await Listings.findById(id);
+    console.log(listing);
+
+    listing.review.push(review)
+    console.log(listing);
+
+    res.redirect(`/listings/${id}/show`);
+    
     
 })
 

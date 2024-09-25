@@ -22,7 +22,8 @@ const reviewSchema = new mongoose.Schema({
     },
 
     created_at:{
-        type: Date
+        type: Date,
+        default:Date.now()
     }
 
 })
