@@ -6,11 +6,30 @@ const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 
 const Listings = require('./models/listing');
-const {listingSchema} = require('./schemaValidate.js');
 const Review = require('./models/review.js');
+
+
+
+//Server side Validation -----
+const {listingSchema, reviewSchema} = require('./schemaValidate.js');
+
+const validateListing =(req,res,next)=>{
+let result = listingSchema.validate(req.body);
+if(result.error){
+    next(new ExpressError('400', result.error));}
+}
+const validateReview =(req,res,next)=>{
+let result = reviewSchema.validate(req.body);
+if(result.error){
+    next(new ExpressError('400', result.error));}
+    next();
+}
+
+
 
 //Error HANDLER
 const ExpressError = require('./expressError.js');
+//All api's Error Handler---
 function asyncWrap(fn){
     console.log('error function is working')
     return function(req,res,next){
@@ -18,7 +37,7 @@ function asyncWrap(fn){
     }
 };
 
-
+// ---------------------------
 
 app.set('view engine','ejs');
 app.set('views', path.join(__dirname,'views'));
@@ -49,7 +68,7 @@ app.delete('/listings/:id',asyncWrap( async(req,res)=>{
 );
 
 //Update Route
-app.put('/listings/:id',asyncWrap( async(req,res)=>{
+app.put('/listings/:id', validateListing, asyncWrap( async(req,res)=>{
     const {id} = req.params;
     const listing = req.body.listing;
     const {image} = req.body
@@ -63,7 +82,7 @@ app.put('/listings/:id',asyncWrap( async(req,res)=>{
 );
 
 //get Edit Route
-app.get('/listings/:id/edit',asyncWrap( async(req,res)=>{
+app.get('/listings/:id/edit',  asyncWrap( async(req,res)=>{
     let {id} = req.params;
     let listing = await Listings.findById(id);
     console.log(listing);
@@ -76,7 +95,7 @@ app.get('/listings/:id/edit',asyncWrap( async(req,res)=>{
 
 
 //Created Route
-app.post('/listings',asyncWrap(  async(req,res,next)=>{
+app.post('/listings',validateListing, asyncWrap(  async(req,res,next)=>{
     // res.send('your request is saved')
     // let {title,description,price,image,location,country} = req.body;
    
@@ -94,7 +113,7 @@ app.post('/listings',asyncWrap(  async(req,res,next)=>{
         //     next( new ExpressError(400, 'please send valid data for Listing'));
         // }
 
-        let result = listingSchema.validate(req.body);
+        // let result = listingSchema.validate(req.body);
         // if(result.error){
         //     next(new ExpressError('404', result.error));
         // }
@@ -161,24 +180,25 @@ app.get('/listings',asyncWrap(  async(req,res)=>{
 
 
 //Review Route---
-app.post('/listings/:id/review', async(req,res,next)=>{
+app.post('/listings/:id/review', validateReview, asyncWrap (async(req,res,next)=>{
 
-    const review = new Review(req.body.review);
-    console.log(review);
+    const newReview = new Review(req.body.review);
+    console.log(newReview);
      
     const{id} = req.params;
     console.log(id);
 
     const listing= await Listings.findById(id);
-    console.log(listing);
+    // console.log(listing);
 
-    listing.review.push(review)
-    console.log(listing);
+    // let result =listing.review.push(newReview)
+    // console.log(result);
 
     res.redirect(`/listings/${id}/show`);
     
     
 })
+);
 
 
 
