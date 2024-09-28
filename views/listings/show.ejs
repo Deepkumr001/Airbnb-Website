@@ -59,5 +59,19 @@
 
 
 
+
+
+    <%for(review of listing.review ){%>
+        <h1>hey there is review</h1>
+         
+        <div class="card">
+            <h5 class="card-title">Akash Dubey(guest)</h5>
+            <h6 class="card-subtitle"><b><i class="fa-solid fa-star" style="color: #FFD43B;"></i><%=review.rating%>Star</b></h6>
+            <p class="card-text"><%=review.comment%></p>
+
+        </div>
+          
+        <%}%>
+
  
 </body>

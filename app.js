@@ -29,6 +29,7 @@ if(result.error){
 
 //Error HANDLER
 const ExpressError = require('./expressError.js');
+const Listing = require('./models/listing');
 //All api's Error Handler---
 function asyncWrap(fn){
     console.log('error function is working')
@@ -146,7 +147,14 @@ app.get('/listings/:id/show',asyncWrap( async(req,res)=>{
     let listing =await Listings.findById(id);
     // console.log(listing);
 
-    res.render('listings/show.ejs',{listing});
+    if(listing.review){
+        let listing = await Listings.findById(id).populate('review');
+        res.render('listings/show.ejs',{listing});
+
+    }
+    else{
+        res.render('listings/show.ejs',{listing});
+    }
 })
 );
 
@@ -183,18 +191,34 @@ app.get('/listings',asyncWrap(  async(req,res)=>{
 app.post('/listings/:id/review', validateReview, asyncWrap (async(req,res,next)=>{
 
     const newReview = new Review(req.body.review);
-    console.log(newReview);
+    await newReview.save()
+    // console.log(newReview);
      
     const{id} = req.params;
     console.log(id);
 
     const listing= await Listings.findById(id);
-    // console.log(listing);
+    // console.log( 'Before push :-',listing);
+    
+// IN THIS CASE REVIEW IN ITSELF SOTRE IN THE LISTING ---    
+    let result =listing.review.push(newReview);
+     await listing.save();
+    console.log('After push',listing);
 
-    // let result =listing.review.push(newReview)
-    // console.log(result);
+
+//INCASE WE WANT TO STORY ID OF THE REVIEW AND LATER POPULATE IT ...
+    // listing.review = newReview;
+    // await listing.save();
+    // const newList = await Listing.findById(id).populate('review');
+    
+    const newList = await Listing.findById(id);
+    console.log('After push search',newList);
+
+    // const allReview =await Review.find({})
+    // console.log(allReview);
 
     res.redirect(`/listings/${id}/show`);
+
     
     
 })
