@@ -26,8 +26,7 @@
 
   
 </div>
-
-<div class="button btns raw">
+<div class="button btns raw offset-3">
     <form method="get" action="/listings/<%= listing._id%>/edit">
         <button class="btn btn-primary brand-color" >Edit Listing</button>
     </form>
@@ -38,40 +37,50 @@
     </form>
 </div>
 
+
 <hr>
 
-<div class="col-8 offset-3">
-    <h2>Leave a Review: </h2>
-    <form action="/listings/<%= listing._id%>/review" method="post"  class="mt-10 mb-5">
-        <div id="rating" class="mt-5 mb-2">
-            <label class="form-label" for="rating"> <b>Rate Us out 1 of 5</b></label>
-            <input style="width: 30rem;" type="range" id="rating" min="1" max="5" name="review[rating]">
-            
+
+
+
+
+
+
+        <div class="col-8 offset-3">
+            <h2>Leave a Review: </h2>
+            <form action="/listings/<%= listing._id%>/review" method="post"  class="mt-10 mb-5">
+                <div id="rating" class="mt-5 mb-2">
+                    <label class="form-label" for="rating"> <b>Rate Us out 1 of 5</b></label>
+                    <input style="width: 30rem;" type="range" id="rating" min="1" max="5" name="review[rating]">
+                    
+                </div>
+                <label for="comment"> Comment Your Suggestions:-</label>
+                <br>
+                <textarea  name="review[comment]" id="comment" cols="50" rows="5"></textarea><br>
+                <button class="btn btn-outline-dark mt-1">Submit</button>
+            </form>
         </div>
-        <label for="comment"> Comment Your Suggestions:-</label>
-        <br>
-        <textarea  name="review[comment]" id="comment" cols="50" rows="5"></textarea>
-        <button class="btn btn-outline-dark mt-5">Submit</button>
-    </form>
-</div>
 
+<hr>
 
-
-
-
-
-
+<h1 style="margin-left: 10rem;">Reviews about this Property:</h1>
+<div id="reviews-row">
     <%for(review of listing.review ){%>
-        <h1>hey there is review</h1>
-         
-        <div class="card">
-            <h5 class="card-title">Akash Dubey(guest)</h5>
-            <h6 class="card-subtitle"><b><i class="fa-solid fa-star" style="color: #FFD43B;"></i><%=review.rating%>Star</b></h6>
-            <p class="card-text"><%=review.comment%></p>
-
+        
+        <div class="card card-review" >
+            <h5 class="card-title mt-2"><i class="fa-solid fa-circle-user fa-2xl"></i>  Akash Dubey(guest)</h5>
+            <h6 class="card-subtitle mt-2">
+              
+                &nbsp;<i class="fa-solid fa-star" style="color: #FFD43B;"></i> <b></i> <%=review.rating%>Star</b></h6>
+                <p style="color: gray;">Date:<%=review.created_at.getDate()%>/<%=review.created_at.getMonth()%>/<%=review.created_at.getFullYear()%></p>
+                <p class="card-text"><%=review.comment%></p>
+                
+            </div>
+            
+            <%}%>
         </div>
-          
-        <%}%>
-
- 
-</body>
+       
+        <hr>
+        
+    </body>
+    

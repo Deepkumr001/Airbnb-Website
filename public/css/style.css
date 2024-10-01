@@ -1,3 +1,4 @@
+
 #navLogo{
     height: 100px;
     width: 100px; 
@@ -9,11 +10,16 @@
 
 .navbar{
     /* margin-top: -40px; */
+    padding-left: 5rem;
     background-color: white;
     margin: 0px -70px 0px -70px;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.062), 0 6px 20px 0 rgba(0, 0, 0, 0.098); 
     
 }
+.nav-link{
+    margin-right:1rem;
+}
+
 
 section{
     flex: 1;
@@ -113,12 +119,12 @@ body{
 
 }
 
-.card-img-top{
- width: 100% !important;
- object-fit: cover !important;
+ .card-img-top{
+ width: 100% !important; 
+object-fit: cover !important;
  border-radius: 1rem;
 
-}
+}  
 
 
 .brand-color{
@@ -134,12 +140,14 @@ width: 50em !important;
 border-radius: 2rem;
 }
 
-.raw{
-    padding: 0rem 20rem 0rem 20rem;
+.row{
+    padding: 0rem 8rem 0rem 8rem !important;
     
 }
 
-
+.raw{
+    padding-left: 35rem;
+}
 
 
 
@@ -161,3 +169,20 @@ border-radius: 2rem;
 
 
 /* //COUSTOMER RATING----- */
+.card-review{
+    border: 2px solid rgba(128, 128, 128, 0.169) !important;
+    /* height: 10rem; */
+    min-height: 13rem;
+    max-height: 1000px !important;
+    padding: 0.5rem;
+    margin-left: 9rem;
+}
+
+#reviews-row{
+    padding: 10rem;
+    width: 100%;
+    display: flex;
+    /* justify-content:space-evenly; */
+    flex-wrap: wrap;
+
+}

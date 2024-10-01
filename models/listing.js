@@ -28,7 +28,7 @@ const listingSchema = new mongoose.Schema({
             type:String,
             default:'https://images.pexels.com/photos/9130978/pexels-photo-9130978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
             set:(v)=>
-                v===' '
+                v===''
             ?'https://media.istockphoto.com/id/1498982549/photo/a-happy-tourist-woman-pn-summer-holidays-walks-on-a-wooden-jetty-in-the-maldives.jpg?s=2048x2048&w=is&k=20&c=DXuSTk1eIEEuwvimc756QpLDxzG2VjFAhxTBytY_9ls='
             :v, 
         }

@@ -17,7 +17,7 @@ const validateListing =(req,res,next)=>{
 let result = listingSchema.validate(req.body);
 if(result.error){
     next(new ExpressError('400', result.error));}
-}
+};
 const validateReview =(req,res,next)=>{
 let result = reviewSchema.validate(req.body);
 if(result.error){
@@ -97,6 +97,7 @@ app.get('/listings/:id/edit',  asyncWrap( async(req,res)=>{
 
 //Created Route
 app.post('/listings',validateListing, asyncWrap(  async(req,res,next)=>{
+    res.send('hlo ji')
     // res.send('your request is saved')
     // let {title,description,price,image,location,country} = req.body;
    
@@ -119,11 +120,11 @@ app.post('/listings',validateListing, asyncWrap(  async(req,res,next)=>{
         //     next(new ExpressError('404', result.error));
         // }
 
-    const newListing = new Listings(req.body.listing);
+    // const newListing = new Listings(req.body.listing);
     
     // console.log(newListing.image);
 
-    await newListing.save()
+    // await newListing.save()
     // .then(res=>{console.log('listing is saved..' )})
     // .catch(err => console.log(err));
 
@@ -133,7 +134,7 @@ app.post('/listings',validateListing, asyncWrap(  async(req,res,next)=>{
 );
 
 //New Route
-app.get('/listings/new',asyncWrap(  (req,res)=>{
+app.get('/listings/new',asyncWrap( async (req,res)=>{
     res.render('listings/new.ejs');
 })
 );
@@ -195,7 +196,7 @@ app.post('/listings/:id/review', validateReview, asyncWrap (async(req,res,next)=
     // console.log(newReview);
      
     const{id} = req.params;
-    console.log(id);
+    // console.log(id);
 
     const listing= await Listings.findById(id);
     // console.log( 'Before push :-',listing);
@@ -203,7 +204,7 @@ app.post('/listings/:id/review', validateReview, asyncWrap (async(req,res,next)=
 // IN THIS CASE REVIEW IN ITSELF SOTRE IN THE LISTING ---    
     let result =listing.review.push(newReview);
      await listing.save();
-    console.log('After push',listing);
+    // console.log('After push',listing);
 
 
 //INCASE WE WANT TO STORY ID OF THE REVIEW AND LATER POPULATE IT ...
@@ -212,7 +213,7 @@ app.post('/listings/:id/review', validateReview, asyncWrap (async(req,res,next)=
     // const newList = await Listing.findById(id).populate('review');
     
     const newList = await Listing.findById(id);
-    console.log('After push search',newList);
+    // console.log('After push search',newList);
 
     // const allReview =await Review.find({})
     // console.log(allReview);
@@ -231,7 +232,7 @@ app.post('/listings/:id/review', validateReview, asyncWrap (async(req,res,next)=
 
 //route route
 app.get('/',(req,res)=>{
-    res.send('Index route is working..');
+    res.render('listings/home.ejs');
 })
 
 //general Error catcher----
