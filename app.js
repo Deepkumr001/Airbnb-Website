@@ -17,7 +17,7 @@ const validateListing =(req,res,next)=>{
 let result = listingSchema.validate(req.body);
 if(result.error){
     next(new ExpressError('400', result.error));}
-};
+}
 const validateReview =(req,res,next)=>{
 let result = reviewSchema.validate(req.body);
 if(result.error){
@@ -64,15 +64,18 @@ async function main() {
 app.delete('/listings/:id',asyncWrap( async(req,res)=>{
     const {id} = req.params;
     await Listings.findByIdAndDelete(id);
+
     res.redirect('/listings');
 })
 );
 
+
+
 //Update Route
-app.put('/listings/:id', validateListing, asyncWrap( async(req,res)=>{
+app.put('/listings/:id',  asyncWrap( async(req,res)=>{
     const {id} = req.params;
     const listing = req.body.listing;
-    const {image} = req.body
+    const {image} = req.body.listing;
     // console.log(image);
     // console.log(id);
     await Listings.findByIdAndUpdate(id, listing);
@@ -86,7 +89,7 @@ app.put('/listings/:id', validateListing, asyncWrap( async(req,res)=>{
 app.get('/listings/:id/edit',  asyncWrap( async(req,res)=>{
     let {id} = req.params;
     let listing = await Listings.findById(id);
-    console.log(listing);
+    // console.log(listing);
     res.render('listings/edit.ejs',{listing});
     // res.send('edit route is working')
 })
@@ -96,8 +99,7 @@ app.get('/listings/:id/edit',  asyncWrap( async(req,res)=>{
 
 
 //Created Route
-app.post('/listings',validateListing, asyncWrap(  async(req,res,next)=>{
-    res.send('hlo ji')
+app.post('/listings', asyncWrap(  async(req,res,next)=>{
     // res.send('your request is saved')
     // let {title,description,price,image,location,country} = req.body;
    
@@ -120,11 +122,11 @@ app.post('/listings',validateListing, asyncWrap(  async(req,res,next)=>{
         //     next(new ExpressError('404', result.error));
         // }
 
-    // const newListing = new Listings(req.body.listing);
+    const newListing = new Listings(req.body.listing);
     
     // console.log(newListing.image);
 
-    // await newListing.save()
+    await newListing.save()
     // .then(res=>{console.log('listing is saved..' )})
     // .catch(err => console.log(err));
 
@@ -143,28 +145,19 @@ app.get('/listings/new',asyncWrap( async (req,res)=>{
 //Show Route
 app.get('/listings/:id/show',asyncWrap( async(req,res)=>{
     let {id} = req.params;
-    // console.log(id);
-
-    let listing =await Listings.findById(id);
-    // console.log(listing);
-
-    if(listing.review){
         let listing = await Listings.findById(id).populate('review');
         res.render('listings/show.ejs',{listing});
 
-    }
-    else{
-        res.render('listings/show.ejs',{listing});
-    }
-})
+    })
 );
 
 //Index Route---
 app.get('/listings',asyncWrap(  async(req,res)=>{
     const listLen = (await Listings.find()).length;
-    console.log(listLen);
+    // console.log(listLen);
     const allListings = await Listings.aggregate([ {$sample:{size:listLen}}]); // using for the shuffled documents representation
-    // console.log(listings);
+
+    // const allListings = await Listings.find();
     res.render('listings/index.ejs',{allListings});
 })
 );
@@ -185,6 +178,9 @@ app.get('/listings',asyncWrap(  async(req,res)=>{
 //     res.send('Data Has been saved!');
 
 // })
+
+
+
 
 
 
@@ -225,6 +221,19 @@ app.post('/listings/:id/review', validateReview, asyncWrap (async(req,res,next)=
 })
 );
 
+
+//Review delete Route
+
+app.delete('/listings/:id/review/:reviewId', asyncWrap( async(req,res)=>{
+    // res.send('review Delete Route is WOrking')
+
+    let{id, reviewId} = req.params;
+
+    await Listings.findByIdAndUpdate(id, {$pull:{review: reviewId}});
+    await Review.findByIdAndDelete(reviewId);
+
+    res.redirect(`/listings/${id}/show`);
+}))
 
 
 

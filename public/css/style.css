@@ -170,19 +170,47 @@ border-radius: 2rem;
 
 /* //COUSTOMER RATING----- */
 .card-review{
-    border: 2px solid rgba(128, 128, 128, 0.169) !important;
+    border: 2px solid rgba(128, 128, 128, 0.368) !important;
     /* height: 10rem; */
     min-height: 13rem;
     max-height: 1000px !important;
     padding: 0.5rem;
-    margin-left: 9rem;
+    margin-left: 9rem; 
+    
+}
+
+.card-title{
+    display: flex;
+    flex-direction: row;
+ 
 }
 
 #reviews-row{
     padding: 10rem;
     width: 100%;
+    /* background-color: aqua; */
     display: flex;
     /* justify-content:space-evenly; */
     flex-wrap: wrap;
+    border-radius: 10rem;
+    overflow: hidden;
 
 }
+
+.delete{
+    display: none;
+}
+
+.delete-review:hover .delete{
+    font-size: small;
+    display: block;
+    position: absolute;
+    border: 1px solid rgba(128, 127, 127, 0.607);
+    background-color: rgb(255, 255, 255);
+    color: rgb(116, 116, 116);
+    
+
+
+}
+
+
