@@ -49,7 +49,7 @@
 
         <div class="col-8 offset-3">
             <h2>Leave a Review: </h2>
-            <form action="/listings/<%= listing._id%>/review" method="post"  class="mt-10 mb-5">
+            <form action="/listings/review/<%= listing._id%>" method="post"  class="mt-10 mb-5">
                 <div id="rating" class="mt-5 mb-2">
                     <label class="form-label " for="rating"> <b>Rate Us out 1 of 5</b></label>
                     <input class="form-control" style="width: 30rem;" type="range" id="rating" min="1" max="5" name="review[rating]">
@@ -78,7 +78,7 @@
             <div class="card card-review" >
                 <h5 class="card-title mt-2"><i class="fa-solid fa-circle-user fa-2xl  "style="margin: 15px 10px 10px 10px;"></i>  <p class="mt-1" style="font-size:larger;">Akash Dubey</p> 
 
-                    <form method="post" action="/listings/<%=listing._id%>/review/<%=review._id%>?_method=DELETE"> 
+                    <form method="post" action="/listings/review/<%=listing._id%>/<%=review._id%>?_method=DELETE"> 
                         <button  class="delete-review" style="margin:-7px 0px 0px 60px;  font-size: xx-large; border: none; background-color: white; ">... <p class="delete btn">Delete</p></button>
                     </form>
                 </h5>

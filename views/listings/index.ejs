@@ -17,7 +17,7 @@
         <% for(listing of allListings) {%>
             <a href="http://localhost:8080/listings/<%=listing._id%>/show" style="text-decoration: none;">
                 <div class="card card-index" style="width: 18rem;">
-                    <img src="<%=listing.image.url%>" class="card-img-top" alt="Listing_img" style="height: 19rem;" &>
+                    <img src="<%=listing.image%>" class="card-img-top" alt="Listing_img" style="height: 19rem;" >
                     <div class="card-body">
                         <p style="margin-bottom: 4px;"><b><%=listing.title%></b> </p>
                         <p  style="font-weight: 500; margin-bottom: 4px;"><i class="fa-solid fa-location-dot"></i> <%= listing.location %> , <%= listing.country %> </p>
@@ -28,15 +28,13 @@
             </a>
         
           <% } %>
+
+    
     </div>
 
    
 
-        <!-- <div id="listing-box">
-            <a href="http://localhost:8080/listings/<%=listing._id%>/show">
-                
-            </a>
-        </div> -->
+
 
         
     
